@@ -1,7 +1,6 @@
 package com.example.global_payment_service.transfer.api;
 
 import com.example.global_payment_service.transfer.TransferOrchestratorService;
-import com.example.global_payment_service.transfer.TransferService;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

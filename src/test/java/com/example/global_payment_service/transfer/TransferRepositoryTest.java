@@ -3,7 +3,6 @@ package com.example.global_payment_service.transfer;
 import com.example.global_payment_service.account.Account;
 import com.example.global_payment_service.account.AccountRepository;
 import com.example.global_payment_service.account.Currency;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -12,7 +11,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 class TransferRepositoryTest {

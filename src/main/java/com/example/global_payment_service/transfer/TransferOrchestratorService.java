@@ -3,8 +3,6 @@ package com.example.global_payment_service.transfer;
 import com.example.global_payment_service.account.Balance;
 import com.example.global_payment_service.transfer.api.TransferRequestDto;
 import com.example.global_payment_service.transfer.exception.BadTransferRequestException;
-import com.example.global_payment_service.transfer.exception.InsufficientFundsException;
-import com.example.global_payment_service.transfer.exception.NegativeTransferException;
 import com.example.global_payment_service.transfer.idempotency.IdempotencyService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;

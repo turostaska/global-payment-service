@@ -18,7 +18,7 @@ public class ExchangeService {
     }
 
     public @NonNull Balance exchangeTo(@NonNull Balance balance, @NonNull Currency to) {
-        var exchangeRate = exchangeRateClient.getExchangeRate(balance.currency(), to);
+        var exchangeRate = getExchangeRate(balance.currency(), to);
         var amount = exchangeRate.multiply(balance.amount());
         return new Balance(amount, to);
     }

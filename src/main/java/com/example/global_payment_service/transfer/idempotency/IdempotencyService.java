@@ -1,7 +1,6 @@
 package com.example.global_payment_service.transfer.idempotency;
 
 import com.example.global_payment_service.transfer.TransferStatus;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
