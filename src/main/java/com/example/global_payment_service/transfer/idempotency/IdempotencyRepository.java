@@ -11,9 +11,11 @@ import java.util.UUID;
 
 @Repository
 public interface IdempotencyRepository extends JpaRepository<Idempotency, UUID> {
+
     Optional<Idempotency> findByIdempotencyKey(UUID idempotencyKey);
 
     @Modifying(clearAutomatically = true)
     @Query("update Idempotency i set i.status = :status where i.idempotencyKey = :idempotencyKey")
     void setStatusWhereIdempotencyKey(TransferStatus status, UUID idempotencyKey);
+
 }

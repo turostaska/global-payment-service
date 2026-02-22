@@ -9,13 +9,16 @@ import java.util.UUID;
 
 @Service
 public class TransferService {
-    private final TransferValidatorService validatorService;
 
-    public TransferService(TransferValidatorService validatorService) {
+    private final TransferValidatorService validatorService;
+    private final TransferRepository transferRepository;
+
+    public TransferService(TransferValidatorService validatorService, TransferRepository transferRepository) {
         this.validatorService = validatorService;
+        this.transferRepository = transferRepository;
     }
 
-    @Transactional()
+    @Transactional
     public void transfer(@NonNull UUID fromId, @NonNull UUID toId, @NonNull Balance balance) {
         var validationResult = validatorService.validate(fromId, toId, balance);
         var from = validationResult.from();
@@ -25,5 +28,7 @@ public class TransferService {
 
         from.setBalance(from.getBalance().subtract(balanceToDeduct.amount()));
         to.setBalance(to.getBalance().add(balanceToAdd.amount()));
+
+        transferRepository.save(new Transfer(from, to, balance.amount(), balance.currency()));
     }
 }

@@ -18,8 +18,7 @@ import java.util.UUID;
 @Entity
 public class Transfer {
 
-    public Transfer(UUID idempotencyKey, Account sender, Account recipient, BigDecimal balance, Currency currency) {
-        this.idempotencyKey = idempotencyKey;
+    public Transfer(Account sender, Account recipient, BigDecimal balance, Currency currency) {
         this.sender = sender;
         this.recipient = recipient;
         this.balance = balance;
@@ -29,9 +28,6 @@ public class Transfer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @Column(unique = true, nullable = false)
-    private UUID idempotencyKey;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
@@ -48,15 +44,11 @@ public class Transfer {
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TransferStatus status;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Account other)) return false;
-        return idempotencyKey != null && idempotencyKey.equals(other.getId());
+        return id != null && id.equals(other.getId());
     }
 
     @Override

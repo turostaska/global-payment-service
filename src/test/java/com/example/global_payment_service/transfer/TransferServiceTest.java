@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class TransferServiceTest {
@@ -20,6 +21,9 @@ class TransferServiceTest {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private TransferRepository transferRepository;
 
     @Test
     void shouldBeAbleToTransfer() {
@@ -35,7 +39,13 @@ class TransferServiceTest {
         var recipient = accountRepository.findById(account1.getId()).orElseThrow();
         assertEquals(new BigDecimal(25), sender.getBalance().stripTrailingZeros());
         assertEquals(new BigDecimal(125), recipient.getBalance().stripTrailingZeros());
-    }
 
+        var transfer = transferRepository.findAll().getFirst();
+        assertNotNull(transfer);
+        assertEquals(sender, transfer.getSender());
+        assertEquals(recipient, transfer.getRecipient());
+        assertEquals(new BigDecimal(75), transfer.getBalance().stripTrailingZeros());
+        assertEquals(Currency.EUR, transfer.getCurrency());
+    }
 
 }
